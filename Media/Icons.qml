@@ -8,6 +8,7 @@ Item{
 	id: root
 
 	property string appLogoPath: ""
+	property string appLogoStrippedPath: ""
 
 	readonly property url defaultLightPackConfig: "qrc:/MMaterial/assets/light-icons.default.json"
 	readonly property url effectiveLightPackConfig: {
@@ -37,6 +38,7 @@ Item{
 		readonly property string iconBasePath: "qrc:/MMaterial/Media/assets/svg/"
 
 		logo: Media.IconData { path: root.appLogoPath ? root.appLogoPath : heavyRoot.iconBasePath + "logo.svg"; type: Media.IconData.Heavy }
+		logoStripped: Media.IconData { path: root.appLogoStrippedPath ? root.appLogoStrippedPath : (root.appLogoPath ? root.appLogoPath : heavyRoot.iconBasePath + "logo.svg"); type: Media.IconData.Heavy }
 		accountBalance: Media.IconData { path: heavyRoot.iconBasePath + "account_balance.svg"; type: Media.IconData.Heavy }
 		accountBox: Media.IconData { path: heavyRoot.iconBasePath + "account_box.svg"; type: Media.IconData.Heavy }
 		accountCircle: Media.IconData { path: heavyRoot.iconBasePath + "account_circle.svg"; type: Media.IconData.Heavy }

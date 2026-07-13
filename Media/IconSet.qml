@@ -8,6 +8,7 @@ QtObject {
 	property Media.IconData priorityHigh
 	property Media.IconData pause
 	property Media.IconData logo
+	property Media.IconData logoStripped
 	property Media.IconData accountBalance
 	property Media.IconData accountBox
 	property Media.IconData accountCircle

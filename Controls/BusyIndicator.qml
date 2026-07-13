@@ -134,7 +134,7 @@ Item {
         size: root.width * 0.3
         anchors.centerIn: root
 
-        iconData: Media.Icons.heavy.logo
+        iconData: Media.Icons.heavy.logoStripped
 		color: UI.Theme.primary.main.toString()
     }
 
