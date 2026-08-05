@@ -940,3 +940,12 @@
 .icon-work:before {
   content: "\ea30";
 }
+.icon-knoxGuard:before {
+  content: "\ea31";
+}
+.icon-knoxWarrantyVoid:before {
+  content: "\ea32";
+}
+.icon-carrierLocked:before {
+  content: "\ea33";
+}
