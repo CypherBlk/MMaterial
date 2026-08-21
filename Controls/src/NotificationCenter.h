@@ -69,6 +69,7 @@ private:
 		QString title;
 		QString groupKey;
 		QString presentation;
+		QString dedupeKey;
 		QDateTime timestamp;
 		QVariantList fields;
 		bool read = false;

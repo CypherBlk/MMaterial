@@ -48,12 +48,21 @@ void NotificationCenter::push(const QString& message, const QVariantMap& details
 	if (message.isEmpty())
 		return;
 
+	const QString dedupeKey = details.value(QStringLiteral("dedupeKey")).toString();
+	if (!dedupeKey.isEmpty()) {
+		for (const Entry& existing : std::as_const(m_entries)) {
+			if (existing.dedupeKey == dedupeKey)
+				return;
+		}
+	}
+
 	Entry entry;
 	entry.message = message;
 	entry.severity = details.value(QStringLiteral("severity")).toInt();
 	entry.title = details.value(QStringLiteral("title")).toString();
 	entry.groupKey = details.value(QStringLiteral("groupKey")).toString();
 	entry.presentation = details.value(QStringLiteral("presentation"), QStringLiteral("banner")).toString();
+	entry.dedupeKey = dedupeKey;
 	entry.fields = details.value(QStringLiteral("fields")).toList();
 	entry.timestamp = QDateTime::currentDateTime();
 

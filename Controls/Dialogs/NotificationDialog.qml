@@ -49,6 +49,13 @@ Item {
         const entry = { message: message, details: details };
 
         if (_dialog.visible && !_root._closing) {
+            const key = details.dedupeKey || "";
+            if (key !== "") {
+                for (let i = 0; i < _root._entries.length; ++i) {
+                    if (_root._entries[i].details.dedupeKey === key)
+                        return;
+                }
+            }
             _root._entries = _root._entries.concat([entry]);
             return;
         }
