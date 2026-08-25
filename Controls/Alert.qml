@@ -17,6 +17,12 @@ Rectangle {
     property int severity: Alert.Severity.Info
     property int variant: Alert.Variant.Filled
 
+    // Ripples a halo out from the status icon. For an alert whose message is a
+    // live state rather than a static notice -- something in progress, or a
+    // prompt whose tooltip the user is meant to open. Off by default: an alert
+    // that is merely informative should not move.
+    property bool pulsing: false
+
     property string text: ""
 	property Media.IconData icon: {
 		if(_root.severity == Alert.Severity.Info) return Media.Icons.light.info;
@@ -113,6 +119,42 @@ Rectangle {
             size: UI.Size.pixel24
             iconData: _root.icon
             color: _private.animatedIconColor
+
+            // A separate item rather than an animation on the icon itself, so
+            // switching pulsing off can never strand the icon at a half-faded
+            // opacity or a non-unit scale.
+            Rectangle {
+                id: _pulseHalo
+
+                anchors.centerIn: parent
+                width: _icon.size
+                height: _icon.size
+                radius: width / 2
+
+                color: "transparent"
+                border.width: UI.Size.pixel2
+                border.color: _private.animatedIconColor
+                visible: _root.pulsing
+                opacity: 0
+
+                SequentialAnimation {
+                    running: _root.pulsing
+                    loops: Animation.Infinite
+
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: _pulseHalo; property: "scale"
+                            from: 0.9; to: 2.0
+                            duration: 1400; easing.type: Easing.OutCubic
+                        }
+                        SequentialAnimation {
+                            NumberAnimation { target: _pulseHalo; property: "opacity"; from: 0.0; to: 0.55; duration: 350 }
+                            NumberAnimation { target: _pulseHalo; property: "opacity"; to: 0.0; duration: 1050 }
+                        }
+                    }
+                    PauseAnimation { duration: 600 }
+                }
+            }
         }
 
 		UI.B2 {
