@@ -20,6 +20,8 @@ Item {
     implicitWidth: size
 
     onProgressChanged: canvas.degree = (progress/100) * 360;
+    onPrimaryColorChanged: canvas.requestPaint()
+    onSecondaryColorChanged: canvas.requestPaint()
 
 	UI.Caption{
         anchors.centerIn: _root
